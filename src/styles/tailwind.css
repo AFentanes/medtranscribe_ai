@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core System Colors */
+    --color-background: #FAFBFC; /* gray-50 with blue undertone */
+    --color-foreground: #1A1D23; /* charcoal-900 */
+    --color-border: rgba(107, 114, 128, 0.2); /* gray-500 with opacity */
+    --color-input: #FFFFFF; /* white */
+    --color-ring: #2D5AA0; /* blue-600 */
+    --color-card: #FFFFFF; /* white */
+    --color-card-foreground: #1A1D23; /* charcoal-900 */
+    --color-popover: #FFFFFF; /* white */
+    --color-popover-foreground: #1A1D23; /* charcoal-900 */
+    --color-muted: #F3F4F6; /* gray-100 */
+    --color-muted-foreground: #6B7280; /* gray-500 */
+
+    /* Brand Colors */
+    --color-primary: #1B4B8C; /* blue-800 Hospital Angeles brand */
+    --color-primary-foreground: #FFFFFF; /* white */
+    --color-secondary: #2D5AA0; /* blue-600 lighter variant */
+    --color-secondary-foreground: #FFFFFF; /* white */
+    --color-accent: #E8B931; /* amber-400 warm gold */
+    --color-accent-foreground: #1A1D23; /* charcoal-900 */
+
+    /* Status Colors */
+    --color-success: #059669; /* emerald-600 medical green */
+    --color-success-foreground: #FFFFFF; /* white */
+    --color-warning: #D97706; /* amber-600 */
+    --color-warning-foreground: #FFFFFF; /* white */
+    --color-error: #DC2626; /* red-600 clinical red */
+    --color-error-foreground: #FFFFFF; /* white */
+    --color-destructive: #DC2626; /* red-600 */
+    --color-destructive-foreground: #FFFFFF; /* white */
+
+    /* Surface Colors */
+    --color-surface: #FFFFFF; /* white */
+    --color-text-primary: #1A1D23; /* charcoal-900 */
+    --color-text-secondary: #6B7280; /* gray-500 */
+
+    /* Medical Specific Colors */
+    --color-medical-alert: #E8B931; /* amber-400 for critical alerts */
+    --color-medical-success: #059669; /* emerald-600 for confirmations */
+    --color-medical-caution: #D97706; /* amber-600 for warnings */
+    --color-medical-critical: #DC2626; /* red-600 for errors */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  .font-caption {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  /* Medical Interface Specific Styles */
+  .medical-shadow {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.08);
+  }
+
+  .medical-shadow-elevated {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+
+  .medical-border {
+    border: 1px solid rgba(107,114,128,0.2);
+  }
+
+  .medical-border-active {
+    border: 2px solid var(--color-primary);
+  }
+
+  .medical-border-error {
+    border: 2px solid var(--color-error);
+  }
+
+  .medical-border-warning {
+    border: 2px solid var(--color-warning);
+  }
+
+  /* Animation Utilities */
+  .medical-transition {
+    transition: all 200ms ease-out;
+  }
+
+  .medical-transition-slow {
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .medical-transition,
+    .medical-transition-slow {
+      transition: none;
+    }
+  }
+
+  /* Loading Animation */
+  .medical-pulse {
+    animation: medical-pulse 1.5s infinite;
+  }
+
+  @keyframes medical-pulse {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1.0;
+    }
+  }
+
+  /* Focus Management */
+  .medical-focus {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* High Contrast Text */
+  .medical-text-high-contrast {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .medical-text-secondary {
+    color: var(--color-text-secondary);
+  }
+}
