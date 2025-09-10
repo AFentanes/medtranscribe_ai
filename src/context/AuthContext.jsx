@@ -48,22 +48,24 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       
       // In a real app, you would make an API call to authenticate
-      // For now, we'll check if there's a registered user with this email
+      // Check if there's a registered user with this email
       const registeredUsers = JSON.parse(localStorage.getItem('medtranscribe_registered_users') || '[]');
       const foundUser = registeredUsers.find(user => user.email === credentials.email);
       
-      const mockUser = foundUser || {
-        id: '123',
-        name: `Dr. ${credentials.email.split('@')[0].charAt(0).toUpperCase() + credentials.email.split('@')[0].slice(1)}`,
-        email: credentials.email,
-        role: 'doctor'
-      };
+      // Only allow login for registered users
+      if (!foundUser) {
+        setError('Usuario no registrado. Por favor regístrate primero.');
+        throw new Error('User not registered');
+      }
+      
+      // Verify password (in a real app, you would hash and compare passwords)
+      // For now, we'll just check if the user exists
       
       // Store user in localStorage
-      localStorage.setItem('medtranscribe_user', JSON.stringify(mockUser));
+      localStorage.setItem('medtranscribe_user', JSON.stringify(foundUser));
       
-      setUser(mockUser);
-      return mockUser;
+      setUser(foundUser);
+      return foundUser;
     } catch (err) {
       console.error('Sign in error:', err);
       setError('Failed to sign in');
