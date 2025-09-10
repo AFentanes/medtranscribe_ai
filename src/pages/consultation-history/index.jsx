@@ -319,7 +319,7 @@ const ConsultationHistory = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative z-[1]">
       <Header />
       <main className="pt-medical-3xl">
         <div className="max-w-7xl mx-auto px-medical-lg py-medical-lg">

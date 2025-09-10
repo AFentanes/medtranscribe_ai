@@ -11,6 +11,9 @@ const TranscriptionDisplay = ({
 }) => {
   const [editingSegment, setEditingSegment] = useState(null);
   const [editText, setEditText] = useState('');
+  const [realTimeText, setRealTimeText] = useState('');
+  const [currentSegmentIndex, setCurrentSegmentIndex] = useState(0);
+  const [wordIndex, setWordIndex] = useState(0);
   const transcriptionRef = useRef(null);
 
   // Mock transcription data with medical terminology
@@ -116,6 +119,34 @@ const TranscriptionDisplay = ({
   const isCurrentSegment = (segment) => {
     return currentTime >= segment?.timestamp && currentTime < (segment?.timestamp + segment?.duration);
   };
+
+  // Real-time transcription simulation
+  useEffect(() => {
+    // Find the current active segment
+    const currentSegment = mockTranscription?.find(segment => 
+      currentTime >= segment?.timestamp && currentTime < (segment?.timestamp + segment?.duration)
+    );
+    
+    if (currentSegment) {
+      // Calculate how much of the segment has been played
+      const segmentProgress = (currentTime - currentSegment.timestamp) / currentSegment.duration;
+      const words = currentSegment.text.split(' ');
+      const totalWords = words.length;
+      
+      // Show words progressively based on time
+      const wordsToShow = Math.max(1, Math.floor(segmentProgress * totalWords) + 1);
+      const partialText = words.slice(0, Math.min(wordsToShow, totalWords)).join(' ');
+      
+      setRealTimeText(partialText);
+      setCurrentSegmentIndex(currentSegment.id);
+      setWordIndex(wordsToShow);
+    } else {
+      // No active segment
+      setRealTimeText('');
+      setCurrentSegmentIndex(0);
+      setWordIndex(0);
+    }
+  }, [currentTime]);
 
   useEffect(() => {
     // Auto-scroll to current segment
@@ -257,12 +288,42 @@ const TranscriptionDisplay = ({
                 </div>
               </div>
             ) : (
-              <div 
-                className="text-sm font-body text-foreground leading-relaxed"
-                dangerouslySetInnerHTML={{
-                  __html: highlightMedicalTerms(segment?.text, segment?.medicalTerms)
-                }}
-              />
+              <div className="text-sm font-body text-foreground leading-relaxed">
+                {isCurrentSegment(segment) ? (
+                  // Show real-time transcription for current segment
+                  <div>
+                    {realTimeText ? (
+                      <>
+                        <span 
+                          dangerouslySetInnerHTML={{
+                            __html: highlightMedicalTerms(realTimeText, segment?.medicalTerms)
+                          }}
+                        />
+                        {realTimeText.length < segment?.text.length && (
+                          <span className="inline-block w-0.5 h-4 bg-primary ml-1 animate-pulse" />
+                        )}
+                      </>
+                    ) : (
+                      <span className="text-muted-foreground italic">
+                        [Transcribiendo...]
+                        <span className="inline-block w-0.5 h-4 bg-primary ml-1 animate-pulse" />
+                      </span>
+                    )}
+                  </div>
+                ) : currentTime >= (segment?.timestamp + segment?.duration) ? (
+                  // Show complete text for past segments
+                  <span 
+                    dangerouslySetInnerHTML={{
+                      __html: highlightMedicalTerms(segment?.text, segment?.medicalTerms)
+                    }}
+                  />
+                ) : (
+                  // Show placeholder for future segments
+                  <span className="text-muted-foreground italic">
+                    [Esperando transcripción...]
+                  </span>
+                )}
+              </div>
             )}
           </div>
         ))}

@@ -158,7 +158,7 @@ const TranscriptionMonitor = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative z-[1]">
       <Header />
       
       <main className="pt-medical-3xl">

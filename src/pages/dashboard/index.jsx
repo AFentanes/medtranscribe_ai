@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Header from '../../components/ui/Header';
 import MetricsCard from './components/MetricsCard';
 import ConsultationTable from './components/ConsultationTable';
@@ -10,6 +11,7 @@ import Button from '../../components/ui/Button';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [consultations, setConsultations] = useState([]);
   const [recentActivities, setRecentActivities] = useState([]);
@@ -178,7 +180,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+  <div className="min-h-screen bg-background relative z-[1]">
       <Header />
       
       <main className="pt-medical-3xl">
@@ -190,7 +192,7 @@ const Dashboard = () => {
                 Panel de Control
               </h1>
               <p className="text-lg font-body text-muted-foreground">
-                Bienvenido, Dr. García. Aquí tienes un resumen de tu actividad médica.
+                Bienvenido, {user?.name || 'Doctor'}. Aquí tienes un resumen de tu actividad médica.
               </p>
             </div>
             <div className="mt-medical-lg lg:mt-0">

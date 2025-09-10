@@ -23,7 +23,7 @@ const StatisticsPanel = ({ statistics }) => {
   ];
 
   const productivityData = [
-    { doctor: 'Dr. García', consultations: 89, avgTime: '12 min' },
+    { doctor: 'Dr. Usuario', consultations: 89, avgTime: '12 min' },
     { doctor: 'Dr. Rodríguez', consultations: 76, avgTime: '15 min' },
     { doctor: 'Dra. Martínez', consultations: 82, avgTime: '11 min' },
     { doctor: 'Dr. López', consultations: 65, avgTime: '18 min' }

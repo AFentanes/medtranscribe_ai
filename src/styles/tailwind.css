@@ -9,26 +9,27 @@
 
 @layer base {
   :root {
-    /* Core System Colors */
-    --color-background: #FAFBFC; /* gray-50 with blue undertone */
-    --color-foreground: #1A1D23; /* charcoal-900 */
-    --color-border: rgba(107, 114, 128, 0.2); /* gray-500 with opacity */
-    --color-input: #FFFFFF; /* white */
-    --color-ring: #2D5AA0; /* blue-600 */
-    --color-card: #FFFFFF; /* white */
-    --color-card-foreground: #1A1D23; /* charcoal-900 */
-    --color-popover: #FFFFFF; /* white */
-    --color-popover-foreground: #1A1D23; /* charcoal-900 */
-    --color-muted: #F3F4F6; /* gray-100 */
-    --color-muted-foreground: #6B7280; /* gray-500 */
 
-    /* Brand Colors */
-    --color-primary: #1B4B8C; /* blue-800 Hospital Angeles brand */
-    --color-primary-foreground: #FFFFFF; /* white */
-    --color-secondary: #2D5AA0; /* blue-600 lighter variant */
-    --color-secondary-foreground: #FFFFFF; /* white */
-    --color-accent: #E8B931; /* amber-400 warm gold */
-    --color-accent-foreground: #1A1D23; /* charcoal-900 */
+  /* Core System Colors */
+  --color-background: #FFFFFF; /* blanco puro */
+  --color-foreground: #1A1D23; /* azul oscuro */
+  --color-border: #B6D0EB; /* azul claro */
+  --color-input: #FFFFFF; /* blanco */
+  --color-ring: #2D5AA0; /* azul intermedio */
+  --color-card: #FFFFFF; /* blanco */
+  --color-card-foreground: #1A1D23; /* azul oscuro */
+  --color-popover: #FFFFFF; /* blanco */
+  --color-popover-foreground: #1A1D23; /* azul oscuro */
+  --color-muted: #E6F0FA; /* azul muy claro */
+  --color-muted-foreground: #3B5C7E; /* azul grisáceo */
+
+  /* Brand Colors */
+  --color-primary: #1B4B8C; /* azul hospital */
+  --color-primary-foreground: #FFFFFF; /* blanco */
+  --color-secondary: #2D5AA0; /* azul intermedio */
+  --color-secondary-foreground: #FFFFFF; /* blanco */
+  --color-accent: #E8B931; /* dorado cálido */
+  --color-accent-foreground: #1A1D23; /* azul oscuro */
 
     /* Status Colors */
     --color-success: #059669; /* emerald-600 medical green */
@@ -57,9 +58,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
+  @apply bg-background text-foreground;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  position: relative;
+}
+
+
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

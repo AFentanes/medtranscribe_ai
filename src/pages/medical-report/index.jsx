@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Header from '../../components/ui/Header';
 import ReportHeader from './components/ReportHeader';
 import PatientDataSection from './components/PatientDataSection';
@@ -11,19 +12,31 @@ import ReportFooter from './components/ReportFooter';
 import ReportSidebar from './components/ReportSidebar';
 
 const MedicalReport = () => {
+  const { user } = useAuth(); 
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [activeSection, setActiveSection] = useState('patient');
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const getFormattedCurrentDate = (includeTime = false) => {
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      ...(includeTime && { hour: '2-digit', minute: '2-digit' })
+    };
+    return new Date().toLocaleString('es-MX', options);
+  };
+
   const [reportData, setReportData] = useState({
     consultationId: "CONS-2024-001847",
-    consultationDate: "04/09/2024",
-    generatedDate: "04/09/2024 14:49",
-    lastModified: "04/09/2024 14:49",
-    lastModifiedBy: "Dr. María García",
+    consultationDate: getFormattedCurrentDate(),
+    generatedDate: getFormattedCurrentDate(true),
+    lastModified: getFormattedCurrentDate(true),
+    lastModifiedBy: user ? `Dr. ${user.name}` : 'Sistema IA', 
     version: "1.0",
     patientName: "Ana Sofía Martínez López",
-    doctorName: "María García",
+    doctorName: user ? user.name : 'N/A', 
     doctorLicense: "4567890",
     validationStatus: "pending",
     validatedBy: null,
@@ -38,7 +51,7 @@ const MedicalReport = () => {
       {
         action: "created",
         doctor: "Sistema IA",
-        date: "04/09/2024 14:49",
+        date: getFormattedCurrentDate(true),
         notes: "Reporte generado automáticamente"
       }
     ],
@@ -390,7 +403,7 @@ const MedicalReport = () => {
         hour: '2-digit',
         minute: '2-digit'
       }),
-      lastModifiedBy: "Dr. María García",
+      lastModifiedBy: user ? `Dr. ${user.name}` : 'Usuario',
       version: (parseFloat(prev?.version) + 0.1)?.toFixed(1)
     }));
   };
@@ -400,7 +413,7 @@ const MedicalReport = () => {
     setReportData(prev => ({
       ...prev,
       validationStatus: 'validated',
-      validatedBy: "Dr. María García",
+      validatedBy: user ? `Dr. ${user.name}` : 'Usuario',
       validationDate: new Date()?.toLocaleString('es-MX', {
         day: '2-digit',
         month: '2-digit',
@@ -412,7 +425,7 @@ const MedicalReport = () => {
         ...prev?.validationHistory,
         {
           action: "validated",
-          doctor: "Dr. María García",
+          doctor: user ? `Dr. ${user.name}` : 'Usuario',
           date: new Date()?.toLocaleString('es-MX', {
             day: '2-digit',
             month: '2-digit',
@@ -489,7 +502,7 @@ const MedicalReport = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative z-[1]">
       <Header />
       
       <div className="pt-medical-3xl">
