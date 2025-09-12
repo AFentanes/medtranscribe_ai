@@ -13,8 +13,7 @@ const ConsultationMetadataForm = ({ metadata, onMetadataChange, errors }) => {
 
   const genderOptions = [
     { value: 'masculino', label: 'Masculino' },
-    { value: 'femenino', label: 'Femenino' },
-    { value: 'otro', label: 'Otro' }
+    { value: 'femenino', label: 'Femenino' }
   ];
 
   const handleInputChange = (field, value) => {

@@ -62,7 +62,6 @@ const PatientDataSection = ({ patientData, isEditing, onUpdate }) => {
                 >
                   <option value="Masculino">Masculino</option>
                   <option value="Femenino">Femenino</option>
-                  <option value="Otro">Otro</option>
                 </select>
               ) : (
                 <p className="text-sm font-body text-foreground mt-1">{patientData?.gender}</p>
