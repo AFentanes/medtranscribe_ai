@@ -177,7 +177,7 @@ const TranscriptionMonitor = () => {
                 
                 <div>
                   <h1 className="text-2xl font-heading font-bold text-foreground">
-                    Monitor de Transcripción
+                    Monitor de Transcripción con Inteligencia Artificial
                   </h1>
                   <p className="text-sm font-body text-muted-foreground mt-1">
                     Procesamiento en tiempo real de consulta médica

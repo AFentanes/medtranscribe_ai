@@ -47,6 +47,29 @@ const AudioControls = ({
 
   const speedOptions = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
 
+  // Auto-update time when playing
+  useEffect(() => {
+    let interval = null;
+    
+    if (isPlaying && currentTime < duration) {
+      interval = setInterval(() => {
+        const newTime = currentTime + (playbackSpeed * 0.1); // Update every 100ms
+        if (newTime >= duration) {
+          onTimeUpdate(duration);
+          onPlayPause(); // Auto-pause when reaching end
+        } else {
+          onTimeUpdate(newTime);
+        }
+      }, 100);
+    }
+    
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isPlaying, currentTime, duration, playbackSpeed, onTimeUpdate, onPlayPause]);
+
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
   return (
